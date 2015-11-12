@@ -1,9 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include "listik.h"
 
-#include "hasht.h"
-
+char get(node *root, char x) {
+    for (; root != NULL; root = root->next)
+        if (root->x == x)
+            return root->x;
+    return '\0';
+}
 
 void push(node **root, char x) {
     assert (root != NULL);
@@ -18,14 +23,6 @@ void push(node **root, char x) {
     *root = new;
 }
 
-char get(node *root, char x) {
-    for (; root != NULL; root = root->next)
-        if (root->x == x)
-            return root->x;
-    return '\0';
-}
-
-// TODO
 char delete(node **root, char x) {
     node *cur = *root;
     char retval;
@@ -53,23 +50,8 @@ char delete(node **root, char x) {
 }
 
 void print(node *root) {
-    printf("list: ");
+    fputs("list: ", stdout);
     for (; root != NULL; root = root->next)
-        printf("%c", root->x);
-    printf("\n");
-}
-
-int main() {
-    node *list;
-    push(&list, 'a');
-    print(list);
-    push(&list, 'b');
-    print(list);
-    push(&list, 'c');
-    print(list);
-    delete(&list, 'b');
-    delete(&list, 'c');
-    push(&list, 'd');
-    print(list);
-    printf("found? %c", get(list, 'x'));
+        putchar(root->x);
+    putchar('\n');
 }
