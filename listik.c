@@ -3,14 +3,14 @@
 #include <assert.h>
 #include "listik.h"
 
-char get(node *root, char x) {
+char listik_get(node *root, char x) {
     for (; root != NULL; root = root->next)
         if (root->x == x)
             return root->x;
     return '\0';
 }
 
-void push(node **root, char x) {
+void listik_push(node **root, char x) {
     assert (root != NULL);
     node *new = (node*) malloc(sizeof(node));
     new->x = x;
@@ -23,7 +23,7 @@ void push(node **root, char x) {
     *root = new;
 }
 
-char delete(node **root, char x) {
+char listik_delete(node **root, char x) {
     node *cur = *root;
     char retval;
 
@@ -49,7 +49,7 @@ char delete(node **root, char x) {
     return '\0';
 }
 
-void print(node *root) {
+void listik_print(node *root) {
     fputs("list: ", stdout);
     for (; root != NULL; root = root->next)
         putchar(root->x);
