@@ -48,11 +48,13 @@ unsigned int hash(void *item, int size) {
 
 void hashek_put(hashek *h, char x) {
     int position = hash(&x, sizeof(char)) % h->size;
-    listik_push(&(h->table[position]), x);
-    h->num_items++;
+    int new_item_inserted = listik_update(&(h->table[position]), x);
 
-    if (h->num_items * 100 / h->size > LOAD_FACTOR_UPPER)
-        hashek_resize(h, h->size * 2);
+    if (new_item_inserted) {
+        h->num_items++;
+        if (h->num_items * 100 / h->size > LOAD_FACTOR_UPPER)
+            hashek_resize(h, h->size * 2);
+    }
 
     printf("load factor: %d\n", h->num_items * 100 / h->size);
 }

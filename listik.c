@@ -7,6 +7,7 @@ char listik_get(node *root, char x) {
     for (; root != NULL; root = root->next)
         if (root->x == x)
             return root->x;
+
     return '\0';
 }
 
@@ -21,6 +22,23 @@ void listik_push(node **root, char x) {
         new->next = *root;
 
     *root = new;
+}
+
+int listik_update(node **root, char x) {
+    assert (root != NULL);
+
+    if (*root != NULL) {
+        node *cur;
+        for (cur = *root; cur != NULL; cur = cur->next)
+            if (cur->x == x) {
+                cur->x = x;
+                return 0;
+            }
+    }
+
+    listik_push(root, x);
+
+    return 1;
 }
 
 char listik_delete(node **root, char x) {
